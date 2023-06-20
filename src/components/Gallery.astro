@@ -1,0 +1,46 @@
+---
+const files = Astro.props.photos
+---
+
+<div>
+    {
+        files.map((file) => {
+            const isImage = /\.(jpg|jpeg)$/.test(file.source);
+            const isVideo = /\.mp4$/.test(file.source);
+
+            return (
+                <a href={`/photo/${file.uuid}`}>
+                    {isImage && (
+                        <img src={file.source} alt="" width="1008" />
+                    )}
+                    {isVideo && (
+                        <video
+                            src={file.source}
+                            onmouseover="this.play()"
+                            onmouseout="this.pause();this.currentTime=0;"
+                            loop
+                            muted
+                            width="1008"
+                        >
+                            Your browser doesen't support videos... lame
+                        </video>
+                    )}
+                </a>
+            );
+        })
+    }
+</div>
+
+<style lang="scss">
+    div {
+        columns: 16rem auto;
+        column-gap: 0.5rem;
+
+        img, video {
+            border-radius: 0.5rem;
+            width: 100%;
+            height: fit-content;
+            margin-bottom: 0.5rem;
+        }
+    }
+</style>

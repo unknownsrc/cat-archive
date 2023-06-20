@@ -1,0 +1,44 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+    title="Upload | Cat Archive"
+    description="Share and contribute to the Cat Archive by uploading your favorite cat pictures."
+    keywords="Cat Archive, upload cat pictures, share, contribute, cat lovers, showcase"
+>
+    <main>
+        <form method="post" action="/api/upload" enctype="multipart/form-data">
+            <label for="tags" class="label">Tags:</label>
+            <input type="text" id="tags" name="tags" required /><br />
+            <input type="file" id="file" name="file" class="file" required /><br
+            /><br />
+            <div class="h-captcha" data-sitekey={import.meta.env.CAPTCHA_KEY}>
+            </div>
+            <input type="submit" class="submit" value="Submit" />
+        </form>
+    </main>
+</BaseLayout>
+
+<script src="https://js.hcaptcha.com/1/api.js" async defer></script>
+<style lang="scss">
+    main {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    form {
+        align-items: center;
+    }
+
+    #tags {
+        width: 80%;
+    }
+
+    .submit,
+    .file {
+        width: 100%;
+    }
+</style>

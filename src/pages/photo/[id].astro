@@ -1,0 +1,106 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Search from "../../components/Search.astro"
+
+import { PrismaClient } from "@prisma/client";
+const prisma = new PrismaClient();
+
+const file = await prisma.photos.findFirst({
+	where: {
+		uuid: Astro.params.id,
+	},
+});
+if (!file) return Astro.redirect("/404");
+
+const isImage = /\.(jpg|jpeg)$/.test(file.source)
+const isVideo = /\.mp4$/.test(file.source)
+const isAudio = file.tags.includes('audio')
+---
+
+<BaseLayout title="Photo Preview | Cat Archive">
+	<main>
+		<Search/>
+
+		<div class="item">
+			{isImage && <img src={file.source} alt="" width="1008" />}
+			{
+				(isVideo && !isAudio) && (
+					<video
+						src={file.source}
+						autoplay
+						loop
+						muted
+						width="1008"
+					>
+						Your browser doesen't support videos... lame
+					</video>
+				)
+			}
+			{
+				(isVideo && isAudio) && (
+					<video
+						src={file.source}
+						autoplay
+						loop
+						controls
+						width="1008"
+					>
+						Your browser doesen't support videos... lame
+					</video>
+				)
+			}
+			<h3>{file.uuid}</h3>
+			<div class="details">
+				<div class="tags">
+					tags:
+					{
+						(file.tags).map((t: string) => {
+							return (
+								<button
+									onclick={`document.querySelector("#search").value += "${t} "`}
+								>
+									{t}
+								</button>
+							);
+						})
+					}
+				</div>
+				hash: {file.hash} <br>
+				uploaded: {file.date}
+			</div>
+		</div>
+	</main>
+</BaseLayout>
+
+<script src="https://code.iconify.design/1/1.0.6/iconify.min.js"></script>
+<style lang="scss">
+	video,
+	img {
+		height: 38rem;
+		width: auto;
+		display: block;
+		margin: 0 auto;
+	}
+
+	.tags button {
+		margin-right: 5px;
+		background-color: #414141;
+		border: none;
+		text-align: center;
+		text-decoration: none;
+		border-radius: 4px;
+		color: #ffffff;
+		font-size: 14px;
+		cursor: pointer;
+		transition: background-color 0.3s ease;
+	}
+
+	.tags button:hover {
+		background-color: #555555;
+	}
+
+	.tags button:focus {
+		outline: none;
+		box-shadow: 0 0 0 2px #ffffff;
+	}
+</style>

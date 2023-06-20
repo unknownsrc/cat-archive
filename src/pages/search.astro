@@ -1,0 +1,24 @@
+---
+import Gallery from "../components/Gallery.astro";
+import Search from "../components/Search.astro";
+import Tags from "../components/Tags.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const searchTags = Astro.url.searchParams.get("q")?.split(" ").join("+");
+const searchRequest = await fetch(`${import.meta.env.SITE}/api/search?q=${searchTags}`)
+const photos = await searchRequest.json();
+---
+
+<BaseLayout
+	title="Search | Cat Archive"
+	description="Search and discover a wide range of cats at Cat Archive. Find the best images of your favourite cats."
+	keywords="Cat Archive, cat search, find cats, cat images"
+>
+	<main>
+		<Search />
+		<Tags />
+		<Gallery photos={photos} />
+	</main>
+</BaseLayout>
+
+<script src="https://code.iconify.design/1/1.0.6/iconify.min.js"></script>

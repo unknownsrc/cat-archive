@@ -1,0 +1,89 @@
+---
+import { PrismaClient } from "@prisma/client";
+const prisma = new PrismaClient();
+
+if (await Astro.cookies.get('password').value != import.meta.env.PASSWORD_HASH) return Astro.redirect("/admin/login")
+
+const waiting = await prisma.unlisted.findMany({
+  where: {
+    adminRequired: true,
+  },
+});
+---
+
+<main>
+  <table>
+    <tr>
+      <th>uuid</th>
+      <th>tags</th>
+      <th>hash</th>
+      <th>source</th>
+      <th>decision</th>
+    </tr>
+    {
+      waiting.map((w) => {
+        return (
+          <tr>
+            <td>{w.uuid}</td>
+            <td>{(w.tags).join(', ')}</td>
+            <td>{w.hash}</td>
+            <td>{w.source}</td>
+            <td>
+              <input type="button" class="approve" onclick={`approve('${w.uuid}')`} value="Approve"/>
+              <input type="button" class="reset" onclick={`reset('${w.uuid}')`} value="Reset"/>
+              <input type="button" class="delete" onclick={`del('${w.uuid}')`} value="Delete"/>
+            </td>
+          </tr>
+        );
+      })
+    }
+  </table>
+
+  <script>
+    window.getCookie = function(name) {
+      var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+      if (match) return match[2];
+    }
+
+    window.approve = async function approve(uuid) {
+      const json = await (await fetch(`/api/admin/approve?uuid=${uuid}&password=${getCookie('password')}`)).json()
+      console.log(json)
+      location.reload()
+    }
+
+    window.reset = async function reset(uuid) {
+      const json = await (await fetch(`/api/admin/reset?uuid=${uuid}&password=${getCookie('password')}`)).json()
+      console.log(json)
+      location.reload()
+    }
+    
+    window.del = async function del(uuid) {
+      const json = await (await fetch(`/api/admin/delete?uuid=${uuid}&password=${getCookie('password')}`)).json()
+      console.log(json)
+      location.reload()
+    }
+  </script>
+</main>
+
+<style>
+  .approve {
+    background-color: rgb(156, 222, 160);
+  }
+
+  .reset {
+    background-color: rgb(233, 239, 192);
+  }
+
+  .delete {
+    background-color: rgb(212, 106, 106);
+  }
+
+  table {
+    border-collapse: collapse;
+  }
+
+  td,
+  th {
+    border: 1px solid black;
+  }
+</style>

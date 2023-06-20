@@ -1,0 +1,76 @@
+<div class="header">
+    <h1><a href="/">Cat Archive</a></h1>
+    <form class="search-bar" action="/search">
+        <input
+            id="search"
+            name="q"
+            type="text"
+            placeholder="Search..."
+            class="search-input"
+        />
+        <button type="submit" class="search-button">
+            <span class="iconify" data-icon="mdi-magnify"></span>
+        </button>
+    </form>
+</div>
+
+<style lang="scss">
+    .header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .header h1 {
+        margin: 0;
+    }
+
+    .search-bar {
+        flex-grow: 1;
+        display: flex;
+        align-items: center;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        overflow: hidden;
+        margin-left: 10px;
+        height: 1.7em;
+    }
+
+    .search-input {
+        flex-grow: 1;
+        height: 40px;
+        padding: 0 10px;
+        border: none;
+        outline: none;
+        background: transparent;
+        font-size: 16px;
+        color: #ffffff;
+    }
+
+    .search-button {
+        height: 40px;
+        width: 40px;
+        border: none;
+        outline: none;
+        background: #414141;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+    }
+
+    .search-button i {
+        font-size: 18px;
+    }
+
+    @media (max-width: 480px) {
+        h1 {
+            font-size: 1em;
+        }
+
+        .search-bar {
+            height: 1.2em;
+        }
+    }
+</style>

@@ -1,0 +1,36 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+import '../styles/global.scss'
+
+const { title, description, keywords } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="keywords" content={keywords}/>
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+		<meta property="og:title" content={title}/>
+		<meta property="og:description" content={description}/>
+		<meta property="og:type" content="website"/>
+		<meta property="og:url" content={import.meta.env.SITE}/>
+		<meta property="og:site_name" content="Cat Archive"/>
+	  
+		<meta name="twitter:card" content="summary_large_image">
+		<meta name="twitter:title" content={title}>
+		<meta name="twitter:description" content={description}>
+	  
+		<title>{title}</title>
+	</head>
+	<body>
+        <Header />
+		<slot />
+        <Footer />
+	</body>
+</html>
+

@@ -1,0 +1,29 @@
+---
+import crypto from 'node:crypto';
+if (Astro.request.method === 'POST') {
+    const data = await Astro.request.formData();
+    const password = data.get('password')
+    const hash = crypto.createHash('md5').update(password.toString()).digest('hex')
+
+    if (hash != import.meta.env.PASSWORD_HASH) return 
+
+    await Astro.cookies.set(
+        'password',
+        crypto.createHash('md5').update(password.toString()).digest('hex')
+    )
+}
+---
+
+<main>
+    <form method="POST">
+        <label for="password" class="label">password:</label>
+        <input
+            type="text"
+            id="password"
+            name="password"
+            autocomplete="off"
+            required
+        /><br />
+        <input type="submit" class="submit" value="Submit" />
+    </form>
+</main>

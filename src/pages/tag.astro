@@ -1,0 +1,139 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Search from "../components/Search.astro";
+
+import { PrismaClient } from "@prisma/client";
+const prisma = new PrismaClient();
+
+const file = await prisma.unlisted.findFirst({
+	where: {
+		tags: {
+			hasEvery: ["untagged"],
+		},
+	},
+});
+
+if (!file) return Astro.redirect("/404");
+
+const isImage = /\.(jpg|jpeg)$/.test(file.source);
+const isVideo = /\.mp4$/.test(file.source);
+const isAudio = file.tags.includes("audio");
+---
+
+<BaseLayout
+	title="Tag | Cat Archive"
+	description="Tag and contribute to the Cat Archive image collection. Help categorize and describe cat images to enhance the browsing experience for cat enthusiasts."
+	keywords="Cat Archive, tag images, contribute, categorize, describe, enhance browsing experience, cat enthusiasts"
+>
+	<main>
+		<Search />
+
+		<div class="item">
+			{isImage && <img src={file.source} alt="" width="1008" />}
+			{
+				isVideo && !isAudio && (
+					<video
+						src={file.source}
+						autoplay
+						loop
+						controls
+						width="1008"
+					>
+						Your browser doesen't support videos... lame
+					</video>
+				)
+			}
+			{
+				isVideo && isAudio && (
+					<video
+						src={file.source}
+						autoplay
+						loop
+						controls
+						width="1008"
+					>
+						Your browser doesen't support videos... lame
+					</video>
+				)
+			}
+			<div class="details">
+				<strong>{file.uuid}</strong>
+				<form
+					method="post"
+					action="/api/tag"
+					enctype="multipart/form-data"
+				>
+					<label for="tags" class="label">tags:</label>
+					<input
+						type="text"
+						id="tags"
+						name="tags"
+						autocomplete="off"
+						required
+					/><br />
+					<div
+						class="h-captcha"
+						data-sitekey={import.meta.env.CAPTCHA_KEY}
+					>
+					</div>
+					<input type="submit" class="submit" value="Submit" />
+					<input
+						type="hidden"
+						id="uuid"
+						name="uuid"
+						value={file.uuid}
+						required
+						readonly
+					/>
+				</form>
+			</div>
+		</div>
+	</main>
+</BaseLayout>
+
+<script src="https://code.iconify.design/1/1.0.6/iconify.min.js"></script>
+<script src="https://js.hcaptcha.com/1/api.js" async defer></script>
+<style lang="scss">
+	video,
+	img {
+		height: 38rem;
+		width: auto;
+		display: block;
+		margin: 0 auto;
+	}
+
+	.details {
+		padding-top: 10px;
+	}
+
+	#tags {
+		width: 90%;
+		margin-bottom: 5px;
+	}
+
+	.submit {
+		width: 300px;
+	}
+
+	.tags button {
+		margin-right: 5px;
+		background-color: #414141;
+		border: none;
+		text-align: center;
+		text-decoration: none;
+		border-radius: 4px;
+		color: #ffffff;
+		font-size: 14px;
+		cursor: pointer;
+		transition: background-color 0.3s ease;
+	}
+
+	.tags button:hover {
+		background-color: #555555;
+	}
+
+	.tags button:focus {
+		outline: none;
+		box-shadow: 0 0 0 2px #ffffff;
+	}
+</style>

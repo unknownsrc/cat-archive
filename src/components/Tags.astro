@@ -1,0 +1,81 @@
+---
+const tagsRequest = await fetch(`${import.meta.env.SITE}/api/tags`);
+const tags = await tagsRequest.json();
+---
+
+<div class="tags">
+    type:
+    {
+        (tags.types).map((t: string) => {
+            return (
+                <button
+                    onclick={`document.querySelector("#search").value += "${t} "`}
+                >
+                    {t}
+                </button>
+            );
+        })
+    }
+
+    cat:
+    {
+        (tags.cats).map((t: string) => {
+            return (
+                <button
+                    onclick={`document.querySelector("#search").value += "${t} "`}
+                >
+                    {t}
+                </button>
+            );
+        })
+    }
+
+    tags:
+    {
+        (tags.tags).map((t: string) => {
+            return (
+                <button
+                    onclick={`document.querySelector("#search").value += "${t} "`}
+                >
+                    {t}
+                </button>
+            );
+        })
+    }
+</div>
+
+<style lang="scss">
+	.tags {
+		padding-bottom: 0.5em;
+	}
+
+	.tags button {
+		margin-right: 5px;
+		background-color: #414141;
+		border: none;
+		text-align: center;
+		text-decoration: none;
+		border-radius: 4px;
+		color: #ffffff;
+		font-size: 14px;
+		cursor: pointer;
+		transition: background-color 0.3s ease;
+	}
+
+	.tags button:hover {
+		background-color: #555555;
+	}
+
+	.tags button:focus {
+		outline: none;
+		box-shadow: 0 0 0 2px #ffffff;
+	}
+
+    @media (max-width: 480px) {
+        .tags {
+            display: none;
+        }
+    }
+
+    // temp untill i find something better ^
+</style>

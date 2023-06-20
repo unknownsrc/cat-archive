@@ -1,0 +1,23 @@
+---
+import Gallery from "../components/Gallery.astro";
+import Tags from "../components/Tags.astro";
+import Search from "../components/Search.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const searchRequest = await fetch(`${import.meta.env.SITE}/api/search`);
+const search = await searchRequest.json();
+---
+
+<BaseLayout
+	title="Home | Cat Archive"
+	description="Welcome to Cat Archive, the ultimate destination for cat lovers! Explore our comprehensive collection of all your favourite cats."
+	keywords="Cat Archive, cat lovers, cats, images, komaru, cocoa, komugi, gomu"
+>
+	<main>
+		<Search />
+		<Tags />
+		<Gallery photos={search} />
+	</main>
+</BaseLayout>
+
+<script src="https://code.iconify.design/1/1.0.6/iconify.min.js"></script>

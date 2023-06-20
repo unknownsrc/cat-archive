@@ -1,0 +1,28 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model photos {
+  uuid    String  @id @default(uuid())
+  tags    String[] 
+  hash    String @unique
+  source  String 
+  date    DateTime  @default(now())
+}
+
+model unlisted {
+  uuid           String  @id @default(uuid())
+  tags           String[] 
+  hash           String @unique
+  source         String 
+  adminRequired  Boolean @default(false)
+  date           DateTime  @default(now())
+}
