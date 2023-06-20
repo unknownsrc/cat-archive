@@ -8,5 +8,5 @@ RUN yarn
 RUN yarn run build 
 
 ENV HOST=0.0.0.0
-ENV PORT=3000
+ENV PORT=80
 CMD ["node", "./dist/server/entry.mjs"]
