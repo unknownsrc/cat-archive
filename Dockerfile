@@ -5,5 +5,14 @@ WORKDIR /usr/src/cat-archive
 
 COPY . /usr/src/cat-archive
 RUN yarn
+RUN yarn run build 
 
-CMD ["yarn", "run", "start"]
+ENV HOST=0.0.0.0
+ENV PORT=80
+
+ENV PASSWORD_HASH=$PASSWORD_HASH
+ENV CAPTCHA_KEY=$CAPTCHA_KEY
+ENV CAPTCHA_SECRET=$CAPTCHA_SECRET
+ENV DATABASE_URL=$CAPTCHA_SECRET
+
+CMD ["node", "./dist/server/entry.mjs"]
