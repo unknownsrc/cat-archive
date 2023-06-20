@@ -1,79 +1,79 @@
----
-import ThemeToggle from "./ThemeToggle.astro";
----
-
 <header>
     <div>
         <a href="/upload">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>upload</title><path d="M9,16V10H5L12,3L19,10H15V16H9M5,20V18H19V20H5Z" /></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                ><title>upload</title><path
+                    d="M9,16V10H5L12,3L19,10H15V16H9M5,20V18H19V20H5Z"
+                ></path></svg
+            >
             Upload
         </a>
         <a href="/tag">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>tag</title><path d="M5.5,7A1.5,1.5 0 0,1 4,5.5A1.5,1.5 0 0,1 5.5,4A1.5,1.5 0 0,1 7,5.5A1.5,1.5 0 0,1 5.5,7M21.41,11.58L12.41,2.58C12.05,2.22 11.55,2 11,2H4C2.89,2 2,2.89 2,4V11C2,11.55 2.22,12.05 2.59,12.41L11.58,21.41C11.95,21.77 12.45,22 13,22C13.55,22 14.05,21.77 14.41,21.41L21.41,14.41C21.78,14.05 22,13.55 22,13C22,12.44 21.77,11.94 21.41,11.58Z" /></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                ><title>tag</title><path
+                    d="M5.5,7A1.5,1.5 0 0,1 4,5.5A1.5,1.5 0 0,1 5.5,4A1.5,1.5 0 0,1 7,5.5A1.5,1.5 0 0,1 5.5,7M21.41,11.58L12.41,2.58C12.05,2.22 11.55,2 11,2H4C2.89,2 2,2.89 2,4V11C2,11.55 2.22,12.05 2.59,12.41L11.58,21.41C11.95,21.77 12.45,22 13,22C13.55,22 14.05,21.77 14.41,21.41L21.41,14.41C21.78,14.05 22,13.55 22,13C22,12.44 21.77,11.94 21.41,11.58Z"
+                ></path></svg
+            >
             Tag
         </a>
     </div>
-
-    <nav>
-        <ThemeToggle />
-    </nav>
 </header>
 
 <script src="https://code.iconify.design/1/1.0.6/iconify.min.js"></script>
-<style lang="scss">
+<style>
     svg {
-        fill: var(--text);
+        fill: #eee;
         height: 1.25rem;
         transition: all 0.25s;
         vertical-align: -22.5%;
-
-        &:hover {
-            fill: var(--link);
-        }
     }
-    
+
+    svg:hover {
+        fill: #4e7;
+    }
+
     header {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
-        background-color: var(--bg);
+        background-color: #111;
         top: 0;
         margin: 2vh 1vw;
+    }
 
-        a {
-            text-decoration: none;
-            padding: 0.5rem;
-            transition: all 0.25s;
+    header a {
+        text-decoration: none;
+        padding: 0.5rem;
+        transition: all 0.25s;
+    }
 
-            &:hover {
-                color: var(--link);
-            }
-        }
+    header a:hover {
+        color: #4e7;
+    }
 
-        // Title
-        h3 {
-            margin: 0;
+    header h3 {
+        margin: 0;
+    }
 
-            a {
-                text-decoration: none;
-                color: var(--text);
-                padding: 1rem 0.5rem;
-                position: relative;
-            }
-        }
+    header h3 a {
+        text-decoration: none;
+        color: #eee;
+        padding: 1rem 0.5rem;
+        position: relative;
+    }
 
-        // Nav
-        nav {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: center;
-            gap: 0.5rem;
+    header nav {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        gap: 0.5rem;
+    }
 
-            @media (max-width: 768px) {
-                display: none;
-            }
+    @media (max-width: 768px) {
+        header nav {
+            display: none;
         }
     }
 </style>

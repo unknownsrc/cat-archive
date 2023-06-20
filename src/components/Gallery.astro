@@ -1,5 +1,5 @@
 ---
-const files = Astro.props.photos
+const files = Astro.props.photos;
 ---
 
 <div>
@@ -10,13 +10,13 @@ const files = Astro.props.photos
 
             return (
                 <a href={`/photo/${file.uuid}`}>
-                    {isImage && (
-                        <img src={file.source} alt="" width="1008" />
-                    )}
+                    {isImage && <img src={file.source} alt="" width="1008" />}
                     {isVideo && (
                         <video
                             src={file.source}
-                            onmouseover="this.play()"
+                            onmouseover="
+                            this.play()
+"
                             onmouseout="this.pause();this.currentTime=0;"
                             loop
                             muted
@@ -31,16 +31,17 @@ const files = Astro.props.photos
     }
 </div>
 
-<style lang="scss">
+<style>
     div {
         columns: 16rem auto;
         column-gap: 0.5rem;
+    }
 
-        img, video {
-            border-radius: 0.5rem;
-            width: 100%;
-            height: fit-content;
-            margin-bottom: 0.5rem;
-        }
+    div img,
+    div video {
+        border-radius: 0.5rem;
+        width: 100%;
+        height: fit-content;
+        margin-bottom: 0.5rem;
     }
 </style>
