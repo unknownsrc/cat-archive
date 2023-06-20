@@ -1,0 +1,16 @@
+version: "3.3"
+
+services:
+  cat-archive:
+    container_name: cat-archive
+    image: ghcr.io/unknownsrc/cat-archive
+    networks:
+      - public
+    restart: on-failure
+    volumes:
+      - ./.env:/usr/src/cat-archive/.env
+
+networks:
+  public:
+    external:
+      name: public
