@@ -4,7 +4,7 @@ import Tags from "../components/Tags.astro";
 import Search from "../components/Search.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 
-const searchRequest = await fetch(`${import.meta.env.SITE}/api/search`);
+const searchRequest = await fetch('http://localhost/api/search');
 const search = await searchRequest.json();
 ---
 

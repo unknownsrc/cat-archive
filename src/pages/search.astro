@@ -5,7 +5,7 @@ import Tags from "../components/Tags.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 
 const searchTags = Astro.url.searchParams.get("q")?.split(" ").join("+");
-const searchRequest = await fetch(`${import.meta.env.SITE}/api/search?q=${searchTags}`)
+const searchRequest = await fetch(`http://localhost/api/search?q=${searchTags}`)
 const photos = await searchRequest.json();
 ---
 

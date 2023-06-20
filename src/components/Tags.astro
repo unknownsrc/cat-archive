@@ -1,5 +1,5 @@
 ---
-const tagsRequest = await fetch(`${import.meta.env.SITE}/api/tags`);
+const tagsRequest = await fetch('http://localhost/api/tags');
 const tags = await tagsRequest.json();
 ---
 
