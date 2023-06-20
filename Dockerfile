@@ -3,6 +3,11 @@ FROM node:alpine
 RUN mkdir -p /usr/src/cat-archive
 WORKDIR /usr/src/cat-archive
 
+ARG PASSWORD_HASH
+ARG CAPTCHA_KEY
+ARG CAPTCHA_SECRET
+ARG DATABASE_URL
+
 COPY . /usr/src/cat-archive
 RUN yarn
 RUN yarn run build 

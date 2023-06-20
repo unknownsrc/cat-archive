@@ -23,8 +23,8 @@ jobs:
         with:
           push: true
           tags: ghcr.io/${{ github.repository }}:latest
-        env: 
-          PASSWORD_HASH: ${{ secrets.PASSWORD_HASH }}
-          CAPTCHA_KEY: ${{ secrets.CAPTCHA_KEY }}
-          CAPTCHA_SECRET: ${{ secrets.CAPTCHA_SECRET }}
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          build-args: |
+            PASSWORD_HASH=${{ secrets.PASSWORD_HASH }}
+            CAPTCHA_KEY=${{ secrets.CAPTCHA_KEY }}
+            CAPTCHA_SECRET=${{ secrets.CAPTCHA_SECRET }}
+            DATABASE_URL=${{ secrets.DATABASE_URL }}
